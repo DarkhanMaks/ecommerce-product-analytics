@@ -1,0 +1,19 @@
+﻿# data (large, never commit)
+data/*
+!data/.gitkeep
+
+# python
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# duckdb / secrets / os
+*.duckdb
+*.duckdb.wal
+.env
+kaggle.json
+.DS_Store
+Thumbs.db
+
+CLAUDE.md
