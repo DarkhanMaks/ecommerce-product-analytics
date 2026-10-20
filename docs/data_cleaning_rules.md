@@ -64,7 +64,7 @@ The top 0.1% of buyers (698 people) generate 6.36% of revenue and the top 1% gen
 They look like real customers (for example resellers or business buyers), so they stay in the data.
 Revenue is moderately concentrated; this is reported in the revenue decomposition step.
 
-## Time anomalies found in the daily profile [A18] (open, to be resolved)
+## Time anomalies found in the daily profile [A18] (decision: exclude 14-17 Nov from the main analysis)
 
 - **Cart events switch on and off on specific dates.** Carts per 100 views: 1.34-1.72 on 1-3 Oct,
   2.45-3.17 on 4-6 Oct, 1.35-1.52 on 7-13 Oct, 2.49-3.28 on 14-27 Oct, 1.08-1.41 from 28 Oct to 7 Nov,
@@ -78,6 +78,16 @@ Revenue is moderately concentrated; this is reported in the revenue decompositio
   68,247 (16 Nov), 185,191 (17 Nov), against roughly 22,000-28,000 on normal days. Cause unknown
   (tracking outage with backfill, or abnormal traffic). November totals, the October vs November
   comparison and the revenue bridge depend on how this window is treated.
+- **What the investigation showed** [B1-B4, sql/01b_november_anomaly.sql]: it is not a handful of bots
+  (top 1,000 users hold 3.83% of events on 16 Nov versus 5.9% on 12 Nov; first-seen users are not elevated).
+  Many users are simply more active (about 13-16 events per user per day versus about 7), purchase events stop
+  completely from about 19:00 on 14 Nov to 07:00 on 16 Nov and again from 16:00 on 16 Nov to 02:00 on 17 Nov
+  while views and carts continue, then purchases arrive at 8-10x the normal hourly rate. The 14-17 Nov
+  window carries 88,164,936 of revenue [B4 sum], 32% of November revenue [A17], in 4 of 30 days.
+  The data cannot say whether this was a short sale, a checkout outage or a logging failure.
+- **Decision:** the main analysis (view `events_main`, defined in `sql/00_setup.sql`) excludes the calendar days
+  14-17 Nov. The cleaned file keeps those rows. Revenue comparisons between months use daily averages so
+  that the 4 missing days do not bias them. The exclusion is stated as a limitation in the README.
 
 ## Limitations
 
