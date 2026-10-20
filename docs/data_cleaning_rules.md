@@ -86,8 +86,8 @@ Revenue is moderately concentrated; this is reported in the revenue decompositio
   window carries 88,164,936 of revenue [B4 sum], 32% of November revenue [A17], in 4 of 30 days.
   The data cannot say whether this was a short sale, a checkout outage or a logging failure.
 - **Decision:** the main analysis (view `events_main`, defined in `sql/00_setup.sql`) excludes the calendar days
-  14-17 Nov. The cleaned file keeps those rows. Revenue comparisons between months use daily averages so
-  that the 4 missing days do not bias them. The exclusion is stated as a limitation in the README.
+  14-17 Nov. The cleaned file keeps those rows. Month-to-month revenue comparisons use like-for-like windows
+  (days 1-13 and 18-30 of each month, 26 days each) so that the 4 missing days do not bias them. The exclusion is stated as a limitation in the README.
 
 ## Limitations
 
