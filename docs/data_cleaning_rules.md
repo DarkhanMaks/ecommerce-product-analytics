@@ -64,9 +64,25 @@ The top 0.1% of buyers (698 people) generate 6.36% of revenue and the top 1% gen
 They look like real customers (for example resellers or business buyers), so they stay in the data.
 Revenue is moderately concentrated; this is reported in the revenue decomposition step.
 
+## Time anomalies found in the daily profile [A18] (open, to be resolved)
+
+- **Cart events switch on and off on specific dates.** Carts per 100 views: 1.34-1.72 on 1-3 Oct,
+  2.45-3.17 on 4-6 Oct, 1.35-1.52 on 7-13 Oct, 2.49-3.28 on 14-27 Oct, 1.08-1.41 from 28 Oct to 7 Nov,
+  then 3.60-4.21 from 8 Nov. Step changes on exact dates look like a change in how cart events are
+  recorded rather than customer behaviour (hypothesis, not proven). Black Friday (29 Nov: 5.17) does not explain the 8 Nov jump.
+- **Cart events grew 3.27x from October to November** (926,516 -> 3,028,930 raw events [A1]),
+  against 1.56x for views and 1.23x for purchases. Duplicates cannot explain it: extra cart copies in all data total 126,985 [A5].
+  (The monthly split of duplicate copies, 28,073 in October and 98,912 in November, comes from a one-off check; add it to the SQL file before quoting it publicly.)
+- **14-17 November are anomalous.** Views: 1,906,883 (13 Nov), 2,855,084 (14 Nov), 5,735,339 (15 Nov),
+  6,026,872 (16 Nov), 5,781,753 (17 Nov), 1,897,940 (18 Nov). Purchases: 22,118 (14 Nov), **0 (15 Nov)**,
+  68,247 (16 Nov), 185,191 (17 Nov), against roughly 22,000-28,000 on normal days. Cause unknown
+  (tracking outage with backfill, or abnormal traffic). November totals, the October vs November
+  comparison and the revenue bridge depend on how this window is treated.
+
 ## Limitations
 
 - Two genuinely different events that share all 9 column values (same second, same product, same user and session) cannot be told apart from a duplicate and are removed.
 - Bot detection is behavioural and approximate; the data has no device, IP or user-agent fields.
 - `user_id` is not necessarily one person; 939 sessions contain more than one `user_id`.
-- Roughly a third of purchase sessions contain no cart event [scratch check, S5: 462,538 of 1,402,758]. The funnel therefore must not assume view -> cart -> purchase is strictly sequential (handled in the funnel step).
+- 462,518 of 1,402,518 purchase sessions (33.0%) contain no cart event [A19], but the share is 53.6% in October and 16.1% in November. The average hides two very different regimes, so the funnel must not assume view -> cart -> purchase is strictly sequential, and cart-based metrics need care (see "Time anomalies"). Only 45,485 of the 462,518 no-cart purchase sessions have an earlier cart for the same product by the same user, so "the cart was in another session" explains little.
+- 6,784 purchase sessions have no view event [A19]; purchases without a prior view are also possible.

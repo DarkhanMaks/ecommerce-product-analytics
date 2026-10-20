@@ -248,3 +248,37 @@ SELECT
 FROM (SELECT strftime(date_trunc('month', event_time), '%Y-%m') AS month, * FROM events)
 GROUP BY ROLLUP (month)
 ORDER BY month;
+
+-- A18. Daily profile (clean data): are cart and purchase rates stable over time?
+SELECT
+    CAST(event_time AS DATE)                                       AS day,
+    count(*) FILTER (WHERE event_type = 'view')                    AS views,
+    count(*) FILTER (WHERE event_type = 'cart')                    AS carts,
+    count(*) FILTER (WHERE event_type = 'purchase')                AS purchases,
+    round(100.0 * count(*) FILTER (WHERE event_type = 'cart')
+          / count(*) FILTER (WHERE event_type = 'view'), 2)        AS carts_per_100_views,
+    round(100.0 * count(*) FILTER (WHERE event_type = 'purchase')
+          / count(*) FILTER (WHERE event_type = 'view'), 2)        AS purchases_per_100_views
+FROM events
+GROUP BY 1
+ORDER BY 1;
+
+-- A19. Purchase sessions without a cart event, by month of first purchase (clean data)
+WITH s AS (
+    SELECT user_session,
+           strftime(date_trunc('month', min(event_time) FILTER (WHERE event_type = 'purchase')), '%Y-%m') AS month,
+           count(*) FILTER (WHERE event_type = 'cart') AS n_cart,
+           count(*) FILTER (WHERE event_type = 'view') AS n_view
+    FROM events
+    GROUP BY user_session
+    HAVING count(*) FILTER (WHERE event_type = 'purchase') > 0
+)
+SELECT
+    coalesce(month, 'total')                                       AS month,
+    count(*)                                                       AS purchase_sessions,
+    count(*) FILTER (WHERE n_cart = 0)                             AS without_cart,
+    round(100.0 * count(*) FILTER (WHERE n_cart = 0) / count(*), 1) AS pct_without_cart,
+    count(*) FILTER (WHERE n_view = 0)                             AS without_view
+FROM s
+GROUP BY ROLLUP (month)
+ORDER BY month;
