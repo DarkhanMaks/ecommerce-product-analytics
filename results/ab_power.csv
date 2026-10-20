@@ -1,0 +1,3 @@
+window_days,exposed_users,users_per_arm,baseline_conversion_any_purchase,mde_conversion_relative_pct,revenue_per_user_mean,revenue_per_user_sd,mde_revenue_per_user_relative_pct,users_per_arm_needed_for_2pct_uplift,users_per_arm_needed_for_5pct_uplift,users_per_arm_needed_for_10pct_uplift
+7,465348,232674,0.1124,2.31,94.34,691.93,6.02,312688,50676,12936
+14,836915,418458,0.1279,1.6,114.15,860.37,4.62,269947,43735,11158
