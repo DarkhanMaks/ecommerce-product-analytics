@@ -32,6 +32,7 @@ price in appliances (5.63% under 70 versus 2.56% at 360+) [feature_sizing.md, I3
 | Guardrail | Share of card payments | Detects substitution of existing payment methods |
 | Diagnostic | CTR of the installment element | Do people notice and use it |
 | Diagnostic | Payment-type breakdown of orders | Where the extra orders come from |
+| Diagnostic | Items per order | Separates a higher order value from more purchases (installments can raise order value without more items) |
 
 **Why overall purchase conversion and not "installment conversion" as the primary metric.**
 Installment conversion is undefined in control (nobody can pay in installments there), and it can rise

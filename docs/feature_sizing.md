@@ -66,6 +66,7 @@ Incremental orders = converted sessions x uplift. Incremental revenue = orders x
 ## Two other ways to size the feature
 
 - **Analogues:** take the conversion lift measured for comparable past launches (a similar payment feature, a similar label on another product page) and apply it to this segment. Replaces the assumed +2/5/10%.
+  Public examples: [Stripe's test of buy now, pay later on 150,000+ checkout sessions](https://stripe.com/en-bg/blog/testing-the-impact-of-buy-now-pay-later) reports a revenue lift of up to 14% (vendor-reported, an upper bound, shown at checkout rather than on the product card), and a [study of in3 installments](https://payin3.eu/en/news-item/paying-in-3-installments-leads-to-72-higher-transaction-value-study/) reports higher order value without more items per order. They are context only; no number from them is used in the scenarios above.
 - **User research / fake-door test:** survey or interview buyers of expensive items, or show a non-functional "from X per month" element to a small share of users and measure the click rate. Gives evidence about demand before building anything.
 
 ## Conclusion

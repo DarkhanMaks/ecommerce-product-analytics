@@ -24,7 +24,13 @@ tmp_dir.mkdir(exist_ok=True)
 con = duckdb.connect()
 con.execute("SET memory_limit = '8GB'")
 con.execute(f"SET temp_directory = '{tmp_dir.as_posix()}'")
-con.execute((ROOT / "sql" / "00_setup.sql").read_text(encoding="utf-8"))
+for setup_stmt in con.extract_statements((ROOT / "sql" / "00_setup.sql").read_text(encoding="utf-8")):
+    try:
+        con.execute(setup_stmt.query)
+    except duckdb.Error:
+        # the cleaned views need data/events_clean.parquet, which does not exist before
+        # sql/01a_build_clean_events.sql has been run once
+        print("Note: cleaned views not available yet; run sql/01a_build_clean_events.sql first.")
 
 sql_text = Path(sys.argv[1]).read_text(encoding="utf-8")
 only = sys.argv[2] if len(sys.argv) > 2 else None  # e.g. "A2": run just that query

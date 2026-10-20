@@ -82,7 +82,7 @@ Revenue is moderately concentrated; this is reported in the revenue decompositio
   (top 1,000 users hold 3.83% of events on 16 Nov versus 5.9% on 12 Nov; first-seen users are not elevated).
   Many users are simply more active (about 13-16 events per user per day versus about 7), purchase events stop
   completely from about 19:00 on 14 Nov to 07:00 on 16 Nov and again from 16:00 on 16 Nov to 02:00 on 17 Nov
-  while views and carts continue, then purchases arrive at 8-10x the normal hourly rate. The 14-17 Nov
+  while views and carts continue, then purchases arrive at several times the normal hourly rate (8,000-15,900 per hour versus 1,000-1,600 on a normal afternoon). The 14-17 Nov
   window carries 88,164,936 of revenue [B4 sum], 32% of November revenue [A17], in 4 of 30 days.
   The data cannot say whether this was a short sale, a checkout outage or a logging failure.
 - **Decision:** the main analysis (view `events_main`, defined in `sql/00_setup.sql`) excludes the calendar days

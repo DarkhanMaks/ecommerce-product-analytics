@@ -5,7 +5,7 @@ SELECT *
 FROM read_parquet(['data/2019-Oct.parquet', 'data/2019-Nov.parquet']);
 
 -- Cleaned events (built by 01a_build_clean_events.sql). All analysis steps use this view.
--- Remove this block if you need to run 01a_build_clean_events.sql from scratch.
+-- Before 01a has been run the file does not exist; src/run_sql.py then prints a note and continues.
 CREATE OR REPLACE VIEW events AS
 SELECT * FROM read_parquet('data/events_clean.parquet');
 
