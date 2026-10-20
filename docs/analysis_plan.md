@@ -121,4 +121,9 @@ as guardrails), noting that those fields do not exist in this dataset.
 
 ## Change log
 
-_(none yet)_
+- **Step 5, cohort definition.** Cohorts are 7-day windows counted from 1 Oct (1-7, 8-14, 15-21, 22-28 Oct)
+  instead of Monday-start calendar weeks, because 1 Oct 2019 is a Tuesday and the first and last calendar weeks
+  would be partial. Users first seen on 29-31 Oct are not in a cohort. The activity week 12-18 Nov is skipped
+  (it contains the excluded days 14-17 Nov) and the partial week 26-30 Nov is not used.
+- **Step 2/3, analysis window.** All analysis from step 3 onward runs on `events_main`, which excludes 14-17 Nov
+  (see docs/data_cleaning_rules.md).
